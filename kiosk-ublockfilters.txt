@@ -1,0 +1,13 @@
+! Filter the edit form button.
+docs.google.com##.freebirdFormviewerViewNavigationHeaderButton
+
+! Filter out the never enter passwords warning.
+docs.google.com##.freebirdFormviewerViewNavigationPasswordWarning
+
+!  Filter out the footer.
+docs.google.com##.freebirdFormviewerViewFooterDisclaimer.freebirdFormviewerViewFooterNoTextDecoration.freebirdDisclaimerColor
+docs.google.com##.freebirdFormviewerViewFooterImageContainer.freebirdFormviewerViewFooterPageBreak
+docs.google.com##.freebirdFormviewerViewFooterDisclaimer.freebirdDisclaimerColor
+
+! Filter out the bottom left feedback button.
+docs.google.com##.freebirdFormviewerViewFeedbackSubmitFeedbackButton
