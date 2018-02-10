@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# GitHub detects .reg files as binaries by default.
+*.reg text
