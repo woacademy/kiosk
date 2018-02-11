@@ -91,7 +91,7 @@ function signVisitorIn(form, time, sheet, responses) {
 
   // Sleeping for the row to be appended is probably necessary.
   sheet.appendRow(row);
-  Utilities.sleep(1 * 1000);
+  Utilities.sleep(9 * 1000);
   setLastACellNote(sheet, time.getTime());
 
   // Add the visitor to the sign out form.
