@@ -34,14 +34,14 @@ var Columns = {
  */
 function onSubmit(e) {
   // Try and load the spreadsheet.
-  spreadsheet = SpreadsheetApp.openById(SPREADSHEETID);
+  var spreadsheet = SpreadsheetApp.openById(SPREADSHEETID);
   if (spreadsheet === null)
     return;
 
   // Resolve relevant submission information.
-  time = e.response.getTimestamp();
-  responses = e.response.getItemResponses();
-  todaysheet = spreadsheet.getSheetByName(getShortDayName(time));
+  var time = e.response.getTimestamp();
+  var responses = e.response.getItemResponses();
+  var todaysheet = spreadsheet.getSheetByName(getShortDayName(time));
   
   // Determine whether they're signing in or out.
   if (responses.length > RESPONSEBOUND) {
