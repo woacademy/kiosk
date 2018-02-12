@@ -20,7 +20,7 @@ var VISITORFORMID = "";
 function onEdit(e) {
   // Allow staff to manually sign out visitors.
   if (e.value !== "x")
-      return;
+    return;
 
   // Only listen in the B column.
   var notation = e.range.getA1Notation();
@@ -37,6 +37,9 @@ function onEdit(e) {
   var name = sheet.getRange(notation.replace("B", "C")).getValue();
   var discrim = sheet.getRange(notation.replace("B", "A")).getNote();
   removeVisitorFromForm(form, name + " (" + discrim + ")");
+
+  // Sign the user out on the sheet.
+  e.range.setValue(getPreferredTime());
 }
 
 /**
