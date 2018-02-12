@@ -40,6 +40,43 @@ function onEdit(e) {
 }
 
 /**
+ * Move all visit records to the archive sheet.
+ *
+ * @return          {N/A}     No return.
+ */
+function archiveRecords() {
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  if (spreadsheet === null)
+    return;
+
+  var archivesheet = spreadsheet.getSheetByName("archive");
+  if (archivesheet === null)
+      return;
+
+  // Loop through each day sheet.
+  var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  days.forEach(function(day) {
+    var todaysheet = spreadsheet.getSheetByName(day);
+    if (todaysheet === null)
+      return;
+
+    // Find the last row in this sheet.
+    var range = todaysheet.getRange("A2:A").getValues();
+    var last = range.filter(String).length + 1;
+
+    // Manually archive each row due to getDataRange problems.
+    for (var i = 2; i <= last; i++) {
+      var values = todaysheet.getRange("A" + i + ":J" + i);
+      archivesheet.appendRow(values.getValues()[0]);
+
+      // Cleanup.
+      values.clearNote();
+      values.clearContent();
+    }
+  });
+}
+
+/**
  * Remove a visitor from the sign out section of the form.
  *
  * @param form      {Form}    Form to use.
