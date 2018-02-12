@@ -11,7 +11,6 @@
 var RESPONSEBOUND = -1;
 var VISITORSIGNID = -1;
 var SPREADSHEETID = "";
-var VISITORFORMID = "";
 var Columns = {
   Column_SignedIn:        0,
   Column_SignedOut:       1,
