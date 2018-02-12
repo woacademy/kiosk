@@ -123,9 +123,10 @@ function signVisitorOut(form, time, sheet, responses) {
         continue;
 
       sheet.getRange("B" + (note + 2)).setValue(getPreferredTime(time));
-      removeVisitorFromForm(form, visitors[visitor]);
       break;
     }
+
+    removeVisitorFromForm(form, visitors[visitor]);
   }
 }
 
