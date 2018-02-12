@@ -3,7 +3,7 @@
  * Visitor Manager — Sheet Script
  *
  * @license   GPLv3, https://www.gnu.org/licenses/gpl.txt
- * @version   1.0
+ * @version   1.1
  * @author    Adam Adoch
  * @updated   12/02/2018
  * @link      http://www.woacademy.co.uk
@@ -43,11 +43,49 @@ function onEdit(e) {
 }
 
 /**
+ * Sign out any stale visitors at the end of the day.
+ *
+ * @return          {N/A}     No return.
+ */
+function signAllVisitorsOut() {
+  var form = FormApp.openById(VISITORFORMID);
+  if (form === null)
+      return;
+
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  if (spreadsheet === null)
+    return;
+
+  var todaysheet = spreadsheet.getSheetByName(getShortDayName());
+  if (todaysheet === null)
+      return;
+
+  // Find the last row in today's sheet.
+  var range = todaysheet.getRange("A2:A").getValues();
+  var last = range.filter(String).length + 1;
+
+  // Loop through today's visitors.
+  for (var i = 2; i <= last; i++) {
+    var outtime = todaysheet.getRange("B" + i);
+    if (outtime.getValue() !== "")
+      continue;
+
+    var name = todaysheet.getRange("C" + i).getValue();
+    var discrim = todaysheet.getRange("A" + i).getNote();
+    removeVisitorFromForm(form, name + " (" + discrim + ")");
+
+    // Sign the user out on the sheet.
+    outtime.setValue(getPreferredTime());
+  }
+}
+
+/**
  * Move all visit records to the archive sheet.
  *
  * @return          {N/A}     No return.
  */
 function archiveRecords() {
+  // Load the archive sheet.
   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
   if (spreadsheet === null)
     return;
@@ -120,4 +158,19 @@ function getPreferredTime(time) {
     time = new Date();
 
   return Utilities.formatDate(time, "Europe/London", "dd/MM/yy @ HH:mm");
+}
+
+/**
+ * Get the day in 3 letter format. (e.g. Mon, Tue, etc.)
+ * @see docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html
+ *
+ * @param time      {Date}    Time to use instead of current time.
+ * @return          {String}  Time in "EEE" format.
+ */
+function getShortDayName(time) {
+  // JS STILL doesn't support default-value kwargs?
+  if (time === undefined)
+    time = new Date();
+
+  return Utilities.formatDate(time, "Europe/London", "EEE");
 }
