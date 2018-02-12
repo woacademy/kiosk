@@ -33,7 +33,7 @@ function onEdit(e) {
       return;
 
   // Get the visitor's name and sign in time.
-  var sheet = source.getActiveSheet();
+  var sheet = e.source.getActiveSheet();
   var name = sheet.getRange(notation.replace("B", "C")).getValue();
   var discrim = sheet.getRange(notation.replace("B", "A")).getNote();
   removeVisitorFromForm(form, name + " (" + discrim + ")");
