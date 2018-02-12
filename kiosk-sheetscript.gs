@@ -52,22 +52,19 @@ function removeVisitorFromForm(form, value) {
   var choices = item.getChoices();
 
   // Find the index of the removed visitor.
-  var index = -1;
   for (var i = 0; i < choices.length; i++) {
     if (choices[i].getValue() !== value)
       continue;
 
-    index = i;
-    break;
+    // Change behaviour based on the amount of signed in visitors.
+    if (choices.length > 1)
+      choices.splice(i, 1);
+    else
+      choices = [item.createChoice("No visitors are currently signed in.")];
+
+    item.setChoices(choices);
+    return;
   }
-
-  // Change behaviour based on the amount of signed in visitors.
-  if (choices.length > 1)
-    choices.splice(index, 1);
-  else
-    choices = [item.createChoice("No visitors are currently signed in.")];
-
-  item.setChoices(choices);
 }
 
 /**
