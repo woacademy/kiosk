@@ -95,9 +95,6 @@ function main(countdown) {
     countdownConfirmation(confirmations[0], countdown);
     return;
   }
-
-  // If it's any other screen, reset the form every 3 minutes if the page doesn't change.
-  restartForm(180);
 }
 
 main(9.0);
