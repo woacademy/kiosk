@@ -28,7 +28,7 @@ function onEdit(e) {
     return;
 
   // Try and load the form.
-  form = FormApp.openById(VISITORFORMID);
+  var form = FormApp.openById(VISITORFORMID);
   if (form === null)
       return;
 
