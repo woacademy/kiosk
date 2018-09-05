@@ -92,10 +92,9 @@ Media_Prev::
 Media_Next::
 Volume_Mute::
 
-; Custom Alt+F4 bind (guess it and you can have a cookie).
+; Custom Alt+F4 bind.
 F12::
 If !GetKeyState("b") || !GetKeyState("e") || !GetKeyState("c")
-|| !GetKeyState("k") || !GetKeyState("y")
   Return
 
 Send !{f4}
